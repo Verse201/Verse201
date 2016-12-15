@@ -64,4 +64,4 @@ shape\tkSphereShape.cpp(61): warning C4267: '引数': 'size_t' から 'int' に�
   コードを生成中...
 d3d9.lib(d3d9.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR は d3dx9.lib(d3dx9_43.dll) で定義されています。2 つ目以降の定義は無視されます。
 XInput.lib(XINPUT1_3.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR は d3dx9.lib(d3dx9_43.dll) で定義されています。2 つ目以降の定義は無視されます。
-  tkEngine.vcxproj -> C:\Users\kbc16b05\Documents\github\Verse201\Game\x64\Release\tkEngine.lib
+  tkEngine.vcxproj -> C:\Users\kbc16b04\Documents\Github\Verse201\Game\x64\Release\tkEngine.lib
