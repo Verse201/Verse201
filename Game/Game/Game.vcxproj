@@ -172,6 +172,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="PlayerHPbar.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -189,6 +190,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="PlayerHPbar.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

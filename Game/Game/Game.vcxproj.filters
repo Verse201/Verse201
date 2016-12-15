@@ -47,6 +47,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -77,6 +80,9 @@
       <Filter>header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
+      <Filter>header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
       <Filter>header Files</Filter>
     </ClInclude>
   </ItemGroup>

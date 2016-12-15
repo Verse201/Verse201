@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "PlayerHPbar.h"
 #include "EnemyManager.h"
+#include "Sound.h"
 
 CLight g_defaultLight;
 CPlayer* g_player;
@@ -81,6 +82,7 @@ int WINAPI wWinMain(
 	NewGO<Map>(0);
 	NewGO<EnemyManager>(0);
 	NewGO<PlayerHPBar>(0);
+	NewGO<SoundCTL>(0);
 	Engine().RunGameLoop();		//ゲームループを実行。
 
 	return 0;
