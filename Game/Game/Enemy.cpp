@@ -1,27 +1,19 @@
 #include "stdafx.h"
 #include "Enemy.h"
+#include "Camera.h"
 
-
-CEnemy::CEnemy()
+Enemy::Enemy() 
 {
 }
 
-CEnemy::~CEnemy()
+Enemy::~Enemy()
 {
 }
 
-void CEnemy::Start()
+void Enemy::Init(const char* modelName, CVector3 pos, CQuaternion rot)
 {
-	modelData.LoadModelData("Assets/modelData/Player.X", NULL);
-	model.Init(&modelData);
-	light.SetAmbinetLight({ 1.0f,1.0f,1.0f });
-	model.SetLight(&light);
+	
 }
 
-void CEnemy::Update()
-{
-}
 
-void CEnemy::Render(CRenderContext& renderContext)
-{
-}
+

@@ -1,12 +1,5 @@
-﻿  stdafx.cpp
-  Camera.cpp
-  CGamecamera.cpp
-  CPlayer.cpp
-CPlayer.cpp(104): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-  main.cpp
-  Map.cpp
-  MapChip.cpp
-  コードを生成中...
+﻿  Enemy_00.cpp
+Enemy_00.cpp(82): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
 LINK : warning LNK4075: /INCREMENTAL は /LTCG の指定によって無視されます。
   LINK : /LTCG が指定されましたが、コードの生成は必要ありません。リンク コマンド ラインから /LTCG を削除し、リンカーの性能を改善してください。
   Game.vcxproj -> C:\Users\kbc16b05\Documents\github\Verse201\Game\x64\Release\Game.exe

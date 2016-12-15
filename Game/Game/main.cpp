@@ -1,4 +1,13 @@
 #include "stdafx.h"
+#include "CGamecamera.h"
+#include "CPlayer.h"
+#include "Camera.h"
+#include "Map.h"
+#include "PlayerHPbar.h"
+#include "EnemyManager.h"
+
+CLight g_defaultLight;
+CPlayer* g_player;
 
 /*!
  * @brief	tkEngineの初期化。
@@ -39,6 +48,17 @@ void InitTkEngine( HINSTANCE hInst )
 	initParam.graphicsConfig.dofConfig.isEnable = true;
 	//AA
 	initParam.graphicsConfig.aaConfig.isEnable = true;
+	//デフォルトライトの初期化。
+	g_defaultLight.SetDiffuseLightDirection(0, { 0.707f, 0.0f, -0.707f });
+	g_defaultLight.SetDiffuseLightDirection(1, { -0.707f, 0.0f, -0.707f });
+	g_defaultLight.SetDiffuseLightDirection(2, { 0.0f, 0.707f, -0.707f });
+	g_defaultLight.SetDiffuseLightDirection(3, { 0.0f, -0.707f, -0.707f });
+
+	g_defaultLight.SetDiffuseLightColor(0, { 0.2f, 0.2f, 0.2f, 1.0f });
+	g_defaultLight.SetDiffuseLightColor(1, { 0.2f, 0.2f, 0.2f, 1.0f });
+	g_defaultLight.SetDiffuseLightColor(2, { 0.3f, 0.3f, 0.3f, 1.0f });
+	g_defaultLight.SetDiffuseLightColor(3, { 0.2f, 0.2f, 0.2f, 1.0f });
+	g_defaultLight.SetAmbinetLight({ 0.3f, 0.3f, 0.3f });
 
 	Engine().Init(initParam);	//初期化。
 	
@@ -56,7 +76,11 @@ int WINAPI wWinMain(
 {
 	//tkEngineの初期化。
 	InitTkEngine( hInst );
-
+	g_player = NewGO<CPlayer>(0);
+	g_gameCamera = NewGO<Camera>(0);
+	NewGO<Map>(0);
+	NewGO<EnemyManager>(0);
+	NewGO<PlayerHPBar>(0);
 	Engine().RunGameLoop();		//ゲームループを実行。
 
 	return 0;

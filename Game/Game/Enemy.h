@@ -2,26 +2,25 @@
 
 #include "tkEngine/graphics/tkSkinModelData.h"
 #include "tkEngine/graphics/tkSkinModel.h"
-#include "tkEngine/graphics/tkAnimation.h"
-#include "tkEngine/graphics/tkEffect.h"
-#include "tkEngine/graphics/tkCamera.h"
-#include "tkEngine/graphics/tkLight.h"
-#include "tkEngine/graphics/tkTexture.h"
-#include "tkEngine/character/tkCharacterController.h"
 
-class CEnemy:public IGameObject
+#include "tkEngine/character/tkCharacterController.h"
+#include "tkEngine/graphics/tkLight.h"
+
+class Enemy : public IGameObject
 {
 public:
-	CEnemy();
-	~CEnemy();
-	void Start();
-	void Update();
-	void Render(CRenderContext& renderContext);
-	CVector3				m_position;			//立ち位置
-	CVector3				scale;				//拡大率
-	CQuaternion				rotation;
-	CSkinModelData			modelData;			//スキンモデルデータ
-	CSkinModel				model;				//スキンモデル
-	CLight					light;				//ライト
-};
+	//ここからメンバ関数。
+	Enemy();
+	~Enemy();
+	void Init(const char* modelName, CVector3 position, CQuaternion rotation);
 
+	//ここからメンバ変数。
+	CSkinModel				skinModel;		//スキンモデル。
+	CSkinModelData			skinModelData;	//スキンモデルデータ。
+	
+	CVector3				e_position;
+	CVector3				scale;
+	CQuaternion				rotation;
+	CLight					light;			//ライト
+	CCharacterController	characterController;
+};

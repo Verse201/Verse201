@@ -22,6 +22,17 @@ public:
 	CVector3 GetPosition() {
 		return m_position;
 	}
+	int GetHP() const
+	{
+		return hp;
+	}
+	/*!
+	* @brief	最大HPの取得。
+	*/
+	int GetMaxHP() const
+	{
+		return maxHP;
+	}
 	CVector3				m_position;			//立ち位置
 	CVector3				scale;				//拡大率
 	CQuaternion				rotation;
@@ -36,5 +47,7 @@ public:
 	bool					isRun;
 	bool					isAttack;
 	bool					isCombo;
+	int						hp = 100;					//ヒットポイント。
+	int						maxHP = 100;				//最大ヒットポイント。
 };
 

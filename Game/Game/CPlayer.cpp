@@ -41,7 +41,6 @@ void CPlayer::Start()
 	m_characterController.Init(0.5f, 1.0f, m_position);
 	
 	animation.PlayAnimation(AnimationStand);
-	animation.SetAnimationLoopFlag(AnimationJump, false);
 	animation.SetAnimationLoopFlag(AnimationAttack_00, false);
 	animation.SetAnimationLoopFlag(AnimationAttack_01, false);
 	animation.SetAnimationLoopFlag(AnimationAttack_02, false);
@@ -68,13 +67,8 @@ void CPlayer::Move()
 	if (isAttack == false) {
 		//キャラクターの移動速度を決定
 		CVector3 move = m_characterController.GetMoveSpeed();
-		move.x = -Pad(0).GetLStickXF() * 5.0f;
-		move.z = -Pad(0).GetLStickYF() * 5.0f;
-
-		if (m_characterController.IsJump() == false && Pad(0).IsTrigger(enButtonA)) {
-			m_characterController.Jump();
-			move.y = 5.0f;
-		}
+		move.x = -Pad(0).GetLStickXF() * 10.0f;
+		move.z = -Pad(0).GetLStickYF() * 10.0f;
 
 		//移動しているか
 		if (move.x != 0.0f || move.z != 0.0f) {
@@ -110,74 +104,66 @@ void CPlayer::Move()
 		}
 		rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(m_angle));
 	}
-	
 }
 
 void CPlayer::Animation()
 {
-	//ジャンプアニメーション
-	if (Pad(0).IsTrigger(enButtonA)) {
-		animation.PlayAnimation(AnimationJump, 0.3f);
+	//走るアニメーション
+	if (isRun == false) {
+		if (isMove == true) {
+			animation.PlayAnimation(AnimationRun, 0.1f);
+			isRun = true;
+		}
 	}
+	else if (isMove == false) {
+		animation.PlayAnimation(AnimationStand, 0.1f);
+		isRun = false;
+	}
+	
+	//攻撃アニメーション
+	if (isAttack == false) {
+		if (Pad(0).IsTrigger(enButtonB)) {
+			//ゲームパッドの０番目のAボタンが押されたら
+			attackAnimationNo = AnimationAttack_00;
+			animation.PlayAnimation(AnimationAttack_00, 0.3f);
+			//攻撃中のフラグをたてる
+			isAttack = true;
+		}
+	}
+	else {
+		if (Pad(0).IsTrigger(enButtonB)) {
+			//コンボ発生
+			isCombo = true;
+			//攻撃中に再度攻撃ボタンが押された
+		}
 
-	//ジャンプしていないとき
-	if (m_characterController.IsJump() == false) {
-		
-			//攻撃アニメーション
-			if (isAttack == false) {
-				if (Pad(0).IsTrigger(enButtonB)) {
-					//ゲームパッドの０番目のAボタンが押されたら
-					attackAnimationNo = AnimationAttack_00;
-					animation.PlayAnimation(AnimationAttack_00, 0.3f);
-					//攻撃中のフラグをたてる
-					isAttack = true;
+		//攻撃中の処理
+		if (animation.IsPlay() == false) {
+			if (isCombo == true) {
+			//アニメーションの再生が終了したときに
+			//コンボが発生していたら
+				if (attackAnimationNo == AnimationAttack_00) {
+					animation.PlayAnimation(AnimationAttack_01, 0.3f);
+					attackAnimationNo = AnimationAttack_01;
 				}
+				else if (attackAnimationNo == AnimationAttack_01) {
+					animation.PlayAnimation(AnimationAttack_02, 0.3f);
+					attackAnimationNo = AnimationAttack_02;
+				}
+				isCombo = false;
 			}
 			else {
-				if (Pad(0).IsTrigger(enButtonB)) {
-					//コンボ発生
-					isCombo = true;
-					//攻撃中に再度攻撃ボタンが押された
-				}
-
-				//攻撃中の処理
-				if (animation.IsPlay() == false) {
-					if (isCombo == true) {
-						//アニメーションの再生が終了したときに
-						//コンボが発生していたら
-						if (attackAnimationNo == AnimationAttack_00) {
-							animation.PlayAnimation(AnimationAttack_01, 0.3f);
-							attackAnimationNo = AnimationAttack_01;
-						}
-						else if (attackAnimationNo == AnimationAttack_01) {
-							animation.PlayAnimation(AnimationAttack_02, 0.3f);
-							attackAnimationNo = AnimationAttack_02;
-						}
-						isCombo = false;
-					}
-					else {
-						//攻撃アニメーションの再生が終わったので
-						//待機アニメーションを流す
-						animation.PlayAnimation(AnimationStand, 0.3f);
-						//攻撃フラグを下す
-						isAttack = false;
-						isCombo = false;
-					}
-				}
-			}
-			//走るアニメーションがループしないように
-			if (isRun == false) {
-				//移動している
-				if (isMove == true) {
-					animation.PlayAnimation(AnimationRun, 0.1f);
-					isRun = true;
-				}
-			}
-			else if (isMove == false) {
-				animation.PlayAnimation(AnimationStand, 0.1f);
+				//攻撃アニメーションの再生が終わったので
+				//待機アニメーションを流す
+				animation.PlayAnimation(AnimationStand, 0.3f);
+				//攻撃フラグを下す
+				isAttack = false;
+				isCombo = false;
 				isRun = false;
 			}
+		}
 	}
+
 	
 	//アニメーションアップデート
 	animation.Update(1.0f / 60.0f);
